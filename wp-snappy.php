@@ -69,7 +69,9 @@ class WP_Snappy {
 
 		$widget = '<script src="'.$wp_snappy_settings['script_url'].'"';
 		$widget .= 'data-domain="'.$wp_snappy_settings['data_domain'].'"';
+		$widget .= 'data-title="'.$wp_snappy_settings['title'].'"';
 		$widget .= 'data-position="'.$wp_snappy_settings['position'].'"';
+		$widget .= 'data-contact="'.$wp_snappy_settings['contact'].'"';
 		$widget .= '></script>';
 
 		echo $widget;
@@ -116,6 +118,14 @@ class WP_Snappy {
 	            'type' => 'text',
 	            'size' => 'regular'
 	        ),
+	        'title' => array(
+	            'id' => 'title',
+	            'name' => __( 'Title', 'wp-snappy' ),
+	            'desc' => __return_null(),
+	            'type' => 'text',
+	            'size' => 'regular',
+	            'std' => 'Help & Support'
+	        ),
 	        'position' => array(
 	            'id' => 'position',
 	            'name' => __( 'Position', 'wp-snappy' ),
@@ -139,11 +149,23 @@ class WP_Snappy {
 					'frontend'=>__('Frontend Only', 'wp-snappy' )
 				)
 	        ),
+	        'contact' => array(
+	            'id' => 'contact',
+	            'name' => __( 'Show Contact Form', 'wp-snappy' ),
+	            'desc' => __return_null(),
+	            'type' => 'radio',
+				'options' => array(
+					'1' => __( 'On', 'wp-snappy' ),
+					'0' => __( 'Off', 'wp-snappy' )
+				),
+				'std' => '1'
+	        ),
 	    );
 
 	    return $settings;
 	}
 
+	//setup text field
 	public function wp_snappy_settings_text_callback( $args ) {
 		global $wp_snappy_settings;
 
@@ -158,6 +180,26 @@ class WP_Snappy {
 	    echo $html;
 	}
 
+	//setup radio field
+	function wp_snappy_settings_radio_callback( $args ) {
+		global $wp_snappy_settings;
+
+		foreach ( $args['options'] as $key => $option ) :
+			$checked = false;
+
+			if ( isset( $wp_snappy_settings[ $args['id'] ] ) && $wp_snappy_settings[ $args['id'] ] == $key )
+				$checked = true;
+			elseif( isset( $args['std'] ) && $args['std'] == $key && ! isset( $wp_snappy_settings[ $args['id'] ] ) )
+				$checked = true;
+
+			echo '<input name="wp_snappy_settings[' . $args['id'] . ']"" id="wp_snappy_settings[' . $args['id'] . '][' . $key . ']" type="radio" value="' . $key . '" ' . checked(true, $checked, false) . '/>&nbsp;';
+			echo '<label for="wp_snappy_settings[' . $args['id'] . '][' . $key . ']">' . $option . '</label><br/>';
+		endforeach;
+
+		echo '<p class="description">' . $args['desc'] . '</p>';
+	}
+
+	//setup select field
 	public function wp_snappy_settings_select_callback($args) {
 		global $wp_snappy_settings;
 
