@@ -68,10 +68,12 @@ class WP_Snappy {
 		global $wp_snappy_settings;
 
 		$widget = '<script src="'.$wp_snappy_settings['script_url'].'"';
-		$widget .= 'data-domain="'.$wp_snappy_settings['data_domain'].'"';
-		$widget .= 'data-title="'.$wp_snappy_settings['title'].'"';
-		$widget .= 'data-position="'.$wp_snappy_settings['position'].'"';
-		$widget .= 'data-contact="'.$wp_snappy_settings['contact'].'"';
+		$widget .= ' data-domain="'.$wp_snappy_settings['data_domain'].'"';
+		$widget .= ' data-title="'.$wp_snappy_settings['title'].'"';
+		$widget .= ' data-position="'.$wp_snappy_settings['position'].'"';
+		$widget .= ' data-contact="'.$wp_snappy_settings['contact'].'"';
+		$widget .= isset($wp_snappy_settings['debug']) ? ' data-faq="'.$wp_snappy_settings['faq'].'"' : '';
+		$widget .= ' data-debug="'.$wp_snappy_settings['debug'].'"';
 		$widget .= '></script>';
 
 		echo $widget;
@@ -160,6 +162,24 @@ class WP_Snappy {
 				),
 				'std' => '1'
 	        ),
+	        'faq' => array(
+	            'id' => 'faq',
+	            'name' => __( 'FAQ', 'wp-snappy' ),
+	            'desc' => __return_null(),
+	            'type' => 'text',
+	            'size' => 'small'
+	        ),
+	        'debug' => array(
+	            'id' => 'debug',
+	            'name' => __( 'Debug', 'wp-snappy' ),
+	            'desc' => __return_null(),
+	            'type' => 'radio',
+				'options' => array(
+					'1' => __( 'On', 'wp-snappy' ),
+					'0' => __( 'Off', 'wp-snappy' )
+				),
+				'std' => '0'
+	        ),
 	    );
 
 	    return $settings;
@@ -193,7 +213,7 @@ class WP_Snappy {
 				$checked = true;
 
 			echo '<input name="wp_snappy_settings[' . $args['id'] . ']"" id="wp_snappy_settings[' . $args['id'] . '][' . $key . ']" type="radio" value="' . $key . '" ' . checked(true, $checked, false) . '/>&nbsp;';
-			echo '<label for="wp_snappy_settings[' . $args['id'] . '][' . $key . ']">' . $option . '</label><br/>';
+			echo '<label for="wp_snappy_settings[' . $args['id'] . '][' . $key . ']">' . $option . '</label>&nbsp;&nbsp;&nbsp;';
 		endforeach;
 
 		echo '<p class="description">' . $args['desc'] . '</p>';
