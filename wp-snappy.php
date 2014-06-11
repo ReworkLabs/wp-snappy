@@ -4,7 +4,7 @@
 Plugin Name:       WP Snappy
 Plugin URI:        https://github.com/imknight/wp-snappy
 Description:       <a href="http://besnappy.com/">Snappy</a> WordPress Plugin
-Version:           0.1
+Version:           0.2
 Author:            Knight
 License:           GNU General Public License v2
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
