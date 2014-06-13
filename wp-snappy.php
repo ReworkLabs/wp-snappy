@@ -4,7 +4,7 @@
 Plugin Name:       WP Snappy
 Plugin URI:        https://github.com/imknight/wp-snappy
 Description:       <a href="http://besnappy.com/">Snappy</a> WordPress Plugin
-Version:           0.2
+Version:           0.3
 Author:            Knight
 License:           GNU General Public License v2
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
@@ -78,6 +78,13 @@ class WP_Snappy {
 		$widget .= ' data-title="'.$wp_snappy_settings['title'].'"';
 		$widget .= ' data-position="'.$wp_snappy_settings['position'].'"';
 		$widget .= ' data-contact="'.$wp_snappy_settings['contact'].'"';
+
+		if ($wp_snappy_settings['prepoinfo'] == 1 && is_user_logged_in() ){
+			$current_user = wp_get_current_user();
+			$widget .= $current_user ? ' data-name="'.$current_user->display_name.'"' : '';
+			$widget .= $current_user ? ' data-email="'.$current_user->user_email.'"' : '';
+		}
+
 		$widget .= ' data-background="'.$wp_snappy_settings['background'].'"';
 		$widget .= isset($wp_snappy_settings['debug']) ? ' data-faq="'.$wp_snappy_settings['faq'].'"' : '';
 		$widget .= ' data-debug="'.$wp_snappy_settings['debug'].'"';
@@ -177,8 +184,19 @@ class WP_Snappy {
 	            'desc' => __return_null(),
 	            'type' => 'radio',
 				'options' => array(
-					'1' => __( 'On', 'wp-snappy' ),
-					'0' => __( 'Off', 'wp-snappy' )
+					'1' => __( 'Yes', 'wp-snappy' ),
+					'0' => __( 'No', 'wp-snappy' )
+				),
+				'std' => '1'
+	        ),
+	        'prepoinfo' => array(
+	            'id' => 'prepoinfo',
+	            'name' => __( 'Pre-Populate User Info', 'wp-snappy' ),
+	            'desc' => __return_null(),
+	            'type' => 'radio',
+				'options' => array(
+					'1' => __( 'Yes', 'wp-snappy' ),
+					'0' => __( 'No', 'wp-snappy' )
 				),
 				'std' => '1'
 	        ),
