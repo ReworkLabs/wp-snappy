@@ -16,16 +16,18 @@ GitHub Branch:     master
 
 class WP_Snappy {
 
+	protected $wp_snappy_settings;
+
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'wp_snappy_admin_init' ) );
 		add_action( 'admin_menu', array( $this, 'wp_snappy_add_menus' ) );
+		$this->wp_snappy_settings = get_option('wp_snappy_settings');
 		$this->wp_snappy_widget();
 	}
 
 	public function wp_snappy_admin_init(){
 		
-		global $wp_snappy_settings;
-		$wp_snappy_settings = get_option('wp_snappy_settings');
+		$wp_snappy_settings = $this->wp_snappy_settings;
 		
 		register_setting( 'wp_snappy_settings', 'wp_snappy_settings', '' );
 		add_settings_section( 'wp_snappy_settings',__return_null(),'__return_false', 'wp_snappy_widget_section' );
@@ -44,8 +46,7 @@ class WP_Snappy {
 
 	public function wp_snappy_widget(){
 		
-		global $wp_snappy_settings;
-		$wp_snappy_settings = get_option('wp_snappy_settings');
+		$wp_snappy_settings = $this->wp_snappy_settings;
 
 		//setting not set yet so don't set the widget
 		if ( empty($wp_snappy_settings['script_url']) OR empty($wp_snappy_settings['data_domain']) ) {
@@ -65,7 +66,7 @@ class WP_Snappy {
 
 	public function wp_snappy_widget_display(){
 		
-		global $wp_snappy_settings;
+		$wp_snappy_settings = $this->wp_snappy_settings;
 
 		$widget = '<script src="'.$wp_snappy_settings['script_url'].'"';
 		$widget .= ' data-domain="'.$wp_snappy_settings['data_domain'].'"';
@@ -187,7 +188,7 @@ class WP_Snappy {
 
 	//setup text field
 	public function wp_snappy_settings_text_callback( $args ) {
-		global $wp_snappy_settings;
+		$wp_snappy_settings = $this->wp_snappy_settings;
 
 		if ( isset( $wp_snappy_settings[ $args['id'] ] ) )
 			$value = $wp_snappy_settings[ $args['id'] ];
@@ -202,7 +203,7 @@ class WP_Snappy {
 
 	//setup radio field
 	function wp_snappy_settings_radio_callback( $args ) {
-		global $wp_snappy_settings;
+		$wp_snappy_settings = $this->wp_snappy_settings;
 
 		foreach ( $args['options'] as $key => $option ) :
 			$checked = false;
@@ -221,7 +222,7 @@ class WP_Snappy {
 
 	//setup select field
 	public function wp_snappy_settings_select_callback($args) {
-		global $wp_snappy_settings;
+		$wp_snappy_settings = $this->wp_snappy_settings;
 
 		if ( isset( $wp_snappy_settings[ $args['id'] ] ) )
 			$value = $wp_snappy_settings[ $args['id'] ];
