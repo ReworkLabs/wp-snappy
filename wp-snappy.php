@@ -28,7 +28,11 @@ class WP_Snappy {
 	public function wp_snappy_admin_init(){
 		
 		$wp_snappy_settings = $this->wp_snappy_settings;
-		
+
+		//for color picker
+		wp_enqueue_style( 'wp-color-picker' );
+		wp_enqueue_script( 'wp-color-picker' );
+
 		register_setting( 'wp_snappy_settings', 'wp_snappy_settings', '' );
 		add_settings_section( 'wp_snappy_settings',__return_null(),'__return_false', 'wp_snappy_widget_section' );
 		$settings = $this->get_snappy_settings();
@@ -61,6 +65,7 @@ class WP_Snappy {
 		//if widget only display on admin or both
 		if ( $wp_snappy_settings['display'] == 'both' ||  $wp_snappy_settings['display'] == 'admin' ) {
 			add_action(	'admin_footer', array( $this , 'wp_snappy_widget_display') );
+			add_action(	'admin_footer', array( $this , 'wp_snappy_colorpicker') );
 		}
 	}
 
@@ -73,11 +78,25 @@ class WP_Snappy {
 		$widget .= ' data-title="'.$wp_snappy_settings['title'].'"';
 		$widget .= ' data-position="'.$wp_snappy_settings['position'].'"';
 		$widget .= ' data-contact="'.$wp_snappy_settings['contact'].'"';
+		$widget .= ' data-background="'.$wp_snappy_settings['background'].'"';
 		$widget .= isset($wp_snappy_settings['debug']) ? ' data-faq="'.$wp_snappy_settings['faq'].'"' : '';
 		$widget .= ' data-debug="'.$wp_snappy_settings['debug'].'"';
 		$widget .= '></script>';
 
 		echo $widget;
+	}
+
+	public function wp_snappy_colorpicker(){
+
+		$html = '<script>
+				(function( $ ) {
+				    $(function() {
+				        $( ".wp-snappy-color-picker" ).wpColorPicker();
+				         
+				    });
+				})( jQuery );
+				</script>';
+		echo $html;
 	}
 
 	public function wp_snappy_add_menus(){
@@ -163,6 +182,12 @@ class WP_Snappy {
 				),
 				'std' => '1'
 	        ),
+	        'background' => array(
+	            'id' => 'background',
+	            'name' => __( 'Background', 'wp-snappy' ),
+	            'desc' => __return_null(),
+	            'type' => 'color'
+	        ),
 	        'faq' => array(
 	            'id' => 'faq',
 	            'name' => __( 'FAQ', 'wp-snappy' ),
@@ -218,6 +243,20 @@ class WP_Snappy {
 		endforeach;
 
 		echo '<p class="description">' . $args['desc'] . '</p>';
+	}
+
+	//setup color field
+	public function wp_snappy_settings_color_callback( $args ) {
+		$wp_snappy_settings = $this->wp_snappy_settings;
+
+		if ( isset( $wp_snappy_settings[ $args['id'] ] ) )
+			$value = $wp_snappy_settings[ $args['id'] ];
+			else
+			$value = isset( $args['std'] ) ? $args['std'] : '';
+
+	    $html = '<input type="text" id="wp_snappy_settings[' . $args['id'] . ']" name="wp_snappy_settings[' . $args['id'] . ']" value="' . esc_attr( stripslashes( $value ) ) . '" class="wp-snappy-color-picker" />';
+	    $html .= '<label for="wp_snappy_settings[' . $args['id'] . ']"> '  . $args['desc'] . '</label>';
+	    echo $html;
 	}
 
 	//setup select field
