@@ -81,16 +81,16 @@ class WP_Snappy {
 	}
 
 	public function wp_snappy_add_menus(){
-		add_menu_page(
+		add_options_page(
 			__('WP Snappy Options','wp-snappy'),
 			__('WP Snappy','wp-snappy'),
 			'manage_options',
 			'wp_snappy',
-			array( $this,'wp_snappy_page_callback')
+			array( $this,'wp_snappy_page_display')
 		);
 	}
 
-	public function wp_snappy_page_callback(){
+	public function wp_snappy_page_display(){
 		?>
 			<div class='wrap'>
 			<h2>WP Snappy Settings</h2>
