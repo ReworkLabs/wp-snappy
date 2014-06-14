@@ -2,10 +2,11 @@
 
 /*
 Plugin Name:       WP Snappy
-Plugin URI:        https://github.com/imknight/wp-snappy
+Plugin URI:        https://github.com/ReworkLabs/wp-snappy
 Description:       <a href="http://besnappy.com/">Snappy</a> WordPress Plugin
 Version:           0.4
 Author:            Knight
+Author URI: 	   http://imknight.net
 License:           GNU General Public License v2
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 Domain Path:       /languages
