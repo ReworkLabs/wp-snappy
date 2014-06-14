@@ -66,8 +66,9 @@ class WP_Snappy {
 		//if widget only display on admin or both
 		if ( $wp_snappy_settings['display'] == 'both' ||  $wp_snappy_settings['display'] == 'admin' ) {
 			add_action(	'admin_footer', array( $this , 'wp_snappy_widget_display') );
-
 		}
+
+
 	}
 
 	public function wp_snappy_widget_display(){
@@ -186,7 +187,8 @@ class WP_Snappy {
 					'top right' => __( 'Top Right', 'wp-snappy' ),
 					'bottom left'=>__('Bottom Left', 'wp-snappy' ),
 					'bottom right'=>__('Bottom Right', 'wp-snappy' )
-				)
+				),
+				'std' => 'bottom right'
 	        ),
 	        'display' => array(
 	            'id' => 'display',
