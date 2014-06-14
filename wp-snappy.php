@@ -32,8 +32,9 @@ class WP_Snappy {
 		//for color picker
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_script( 'wp-color-picker' );
+		add_action(	'admin_footer', array( $this , 'wp_snappy_colorpicker') );
 
-		register_setting( 'wp_snappy_settings', 'wp_snappy_settings', '' );
+		register_setting( 'wp_snappy_settings', 'wp_snappy_settings', array( $this, 'wp_snappy_validate_options' ) );
 		add_settings_section( 'wp_snappy_settings',__return_null(),'__return_false', 'wp_snappy_widget_section' );
 		$settings = $this->get_snappy_settings();
 			foreach ($settings as $id => $option){
@@ -65,7 +66,7 @@ class WP_Snappy {
 		//if widget only display on admin or both
 		if ( $wp_snappy_settings['display'] == 'both' ||  $wp_snappy_settings['display'] == 'admin' ) {
 			add_action(	'admin_footer', array( $this , 'wp_snappy_widget_display') );
-			add_action(	'admin_footer', array( $this , 'wp_snappy_colorpicker') );
+
 		}
 	}
 
@@ -131,6 +132,26 @@ class WP_Snappy {
 		<?php 
 	}
 
+	//validate the options before saving
+	public function wp_snappy_validate_options($input){
+
+		$output = array();
+
+		//highlight to user that both script url and data domain is required
+		if ( empty( $input['script_url'] ) &&  empty( $input['data_domain'] ) ) {
+			add_settings_error( 'wp_snappy_settings', 'wp_snappy_settings_error', __( 'Script URL and Data Domain is required.', 'wp-snappy' ), 'error' );
+		}
+
+		foreach( $input as $key => $value ) {		 
+			if( isset( $input[$key] ) ) {
+			 		    $output[$key] = strip_tags( stripslashes( trim( $input[ $key ] ) ) );
+			}
+		}
+
+		return apply_filters( 'wp_snappy_validate_options', $output, $input );
+	}
+
+	//getting all the field settings
 	public function get_snappy_settings(){
 	    $settings = array(
 	        'script_url' => array(
