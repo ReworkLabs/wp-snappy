@@ -7,6 +7,7 @@ Snappy WordPress Plugin
 
 = 0.4 =
 * added uninstaller
+* added options validation
 
 = 0.3 = 
 * move the settings page under options
