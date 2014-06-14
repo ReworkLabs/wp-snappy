@@ -149,6 +149,11 @@ class WP_Snappy {
 			}
 		}
 
+		if ( isset( $input['background'] ) &&  !preg_match( '/^#[a-f0-9]{6}$/i', $input['background'] ) ) {
+			add_settings_error( 'wp_snappy_settings', 'wp_snappy_settings_error', __( 'Insert a valid color for Background.', 'wp-snappy' ), 'error' );
+			$input['background'] = '';
+		}
+
 		return apply_filters( 'wp_snappy_validate_options', $output, $input );
 	}
 
