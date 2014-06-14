@@ -5,6 +5,9 @@ Snappy WordPress Plugin
 
 == Changelog ==
 
+= 0.4 =
+* added uninstaller
+
 = 0.3 = 
 * move the settings page under options
 * added background color picker,
