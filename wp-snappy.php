@@ -4,7 +4,7 @@
 Plugin Name:       WP Snappy
 Plugin URI:        https://github.com/ReworkLabs/wp-snappy
 Description:       <a href="http://besnappy.com/">Snappy</a> WordPress Plugin
-Version:           0.4
+Version:           0.5
 Author:            Knight
 Author URI: 	   http://imknight.net
 License:           GNU General Public License v2
@@ -254,7 +254,8 @@ class WP_Snappy {
 	            'id' => 'background',
 	            'name' => __( 'Background', 'wp-snappy' ),
 	            'desc' => __return_null(),
-	            'type' => 'color'
+	            'type' => 'color',
+	            'std' => '#ec5a47'
 	        ),
 	        'faq' => array(
 	            'id' => 'faq',
