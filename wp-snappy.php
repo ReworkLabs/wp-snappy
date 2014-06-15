@@ -69,7 +69,10 @@ class WP_Snappy {
 			add_action(	'admin_footer', array( $this , 'wp_snappy_widget_display') );
 		}
 
-
+		if ( $wp_snappy_settings['hidefaq'] == 1 ) {
+			add_action(	'wp_footer', array( $this , 'wp_snappy_widget_addon') );
+			add_action(	'admin_footer', array( $this , 'wp_snappy_widget_addon') );
+		} 
 	}
 
 	public function wp_snappy_widget_display(){
@@ -95,6 +98,23 @@ class WP_Snappy {
 
 		echo $widget;
 	}
+
+	public function wp_snappy_widget_addon(){
+		
+		$wp_snappy_settings = $this->wp_snappy_settings;
+		$widget = '<script>
+				(function( $ ) {
+				    $(function() {
+				        $( ".snappy-button" ).click(function(e){
+				        	e.preventDefault();
+				        	SnappyWidget.open({contact: true});
+				        });	         
+				    });
+				})( jQuery );
+				</script>';
+		echo $widget;
+	}
+
 
 	public function wp_snappy_colorpicker(){
 
@@ -264,7 +284,7 @@ class WP_Snappy {
 				),
 				'std' => '0'
 	        ),
-	        'powerby' => array(
+	        /*'powerby' => array(
 	            'id' => 'powerby',
 	            'name' => __( 'Powered by Snappy', 'wp-snappy' ),
 	            'desc' => __return_null(),
@@ -274,7 +294,7 @@ class WP_Snappy {
 					'0' => __( 'Hide', 'wp-snappy' )
 				),
 				'std' => '1'
-	        ),
+	        ),*/
 	    );
 
 	    return $settings;
