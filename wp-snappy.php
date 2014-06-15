@@ -94,6 +94,7 @@ class WP_Snappy {
 		$widget .= ' data-background="'.$wp_snappy_settings['background'].'"';
 		$widget .= isset($wp_snappy_settings['debug']) ? ' data-faq="'.$wp_snappy_settings['faq'].'"' : '';
 		$widget .= ' data-debug="'.$wp_snappy_settings['debug'].'"';
+		$widget .= ' data-whitelabel="'.$wp_snappy_settings['whitelabel'].'"';
 		$widget .= '></script>';
 
 		echo $widget;
@@ -284,17 +285,17 @@ class WP_Snappy {
 				),
 				'std' => '0'
 	        ),
-	        /*'powerby' => array(
-	            'id' => 'powerby',
+	        'whitelabel' => array(
+	            'id' => 'whitelabel',
 	            'name' => __( 'Powered by Snappy', 'wp-snappy' ),
 	            'desc' => __return_null(),
 	            'type' => 'radio',
 				'options' => array(
-					'1' => __( 'Display', 'wp-snappy' ),
-					'0' => __( 'Hide', 'wp-snappy' )
+					'0' => __( 'Display', 'wp-snappy' ),
+					'1' => __( 'Hide', 'wp-snappy' )
 				),
-				'std' => '1'
-	        ),*/
+				'std' => '0'
+	        )
 	    );
 
 	    return $settings;
