@@ -209,12 +209,12 @@ class WP_Snappy {
 	        ),
 	        'contact' => array(
 	            'id' => 'contact',
-	            'name' => __( 'Show Contact Form', 'wp-snappy' ),
+	            'name' => __( 'Contact Form', 'wp-snappy' ),
 	            'desc' => __return_null(),
 	            'type' => 'radio',
 				'options' => array(
-					'1' => __( 'Yes', 'wp-snappy' ),
-					'0' => __( 'No', 'wp-snappy' )
+					'1' => __( 'Enable', 'wp-snappy' ),
+					'0' => __( 'Disable', 'wp-snappy' )
 				),
 				'std' => '1'
 	        ),
@@ -237,7 +237,7 @@ class WP_Snappy {
 	        ),
 	        'faq' => array(
 	            'id' => 'faq',
-	            'name' => __( 'FAQ', 'wp-snappy' ),
+	            'name' => __( 'Default FAQ', 'wp-snappy' ),
 	            'desc' => __return_null(),
 	            'type' => 'text',
 	            'size' => 'small'
@@ -252,6 +252,28 @@ class WP_Snappy {
 					'0' => __( 'Off', 'wp-snappy' )
 				),
 				'std' => '0'
+	        ),
+	        'hidefaq' => array(
+	            'id' => 'hidefaq',
+	            'name' => __( 'Hide FAQ', 'wp-snappy' ),
+	            'desc' => __return_null(),
+	            'type' => 'radio',
+				'options' => array(
+					'1' => __( 'Yes', 'wp-snappy' ),
+					'0' => __( 'No', 'wp-snappy' )
+				),
+				'std' => '0'
+	        ),
+	        'powerby' => array(
+	            'id' => 'powerby',
+	            'name' => __( 'Powered by Snappy', 'wp-snappy' ),
+	            'desc' => __return_null(),
+	            'type' => 'radio',
+				'options' => array(
+					'1' => __( 'Display', 'wp-snappy' ),
+					'0' => __( 'Hide', 'wp-snappy' )
+				),
+				'std' => '1'
 	        ),
 	    );
 
